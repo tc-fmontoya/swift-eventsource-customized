@@ -9,7 +9,7 @@ struct DataIter: IteratorProtocol {
     }
 }
 
-public class UTF8LineParser {
+@objcMembers public class UTF8LineParser: NSObject {
     private let lf = Unicode.Scalar(0x0A)
     private let cr = Unicode.Scalar(0x0D)
     private let replacement = String(Unicode.UTF8.decode(Unicode.UTF8.encodedReplacementCharacter))

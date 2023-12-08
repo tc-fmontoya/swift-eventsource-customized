@@ -29,7 +29,7 @@ public enum ConnectionErrorAction {
 }
 
 /// Struct representing received event from the stream.
-public struct MessageEvent: Equatable, Hashable {
+@objcMembers public class MessageEvent: NSObject {
     /// The event data of the event.
     public let data: String
     /// The last seen event id, or the event id set in the Config if none have been received.
@@ -45,10 +45,14 @@ public struct MessageEvent: Equatable, Hashable {
         self.data = data
         self.lastEventId = lastEventId
     }
+    
+    public override func isEqual(_ object: Any?) -> Bool {
+        return data == (object as? MessageEvent)?.data && lastEventId == (object as? MessageEvent)?.lastEventId
+    }
 }
 
 /// Protocol for an object that will receive SSE events.
-public protocol EventHandler {
+@objc public protocol EventHandler {
     /// EventSource calls this method when the stream connection has been opened.
     func onOpened()
 

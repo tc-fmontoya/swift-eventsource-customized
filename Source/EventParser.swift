@@ -1,6 +1,6 @@
 import Foundation
 
-public class EventParser {
+@objcMembers public class EventParser: NSObject {
     private struct Constants {
         static let dataLabel: Substring = "data"
         static let idLabel: Substring = "id"
@@ -37,7 +37,7 @@ public class EventParser {
 
     public func getLastEventId() -> String { lastEventId }
 
-    public func reset() -> TimeInterval {
+    @discardableResult public func reset() -> TimeInterval {
         data = ""
         eventType = ""
         lastEventIdBuffer = nil
