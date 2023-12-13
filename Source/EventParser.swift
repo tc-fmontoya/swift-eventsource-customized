@@ -8,7 +8,7 @@ import Foundation
         static let retryLabel: Substring = "retry"
     }
 
-    private let handler: EventHandler
+    private weak var handler: EventHandler?
 
     private var data: String = ""
     private var eventType: String = ""
@@ -29,7 +29,7 @@ import Foundation
         case ("", nil): // Empty line
             dispatchEvent()
         case let ("", .some(comment)): // Line starting with ':' is a comment
-            handler.onComment(comment: String(comment))
+            handler?.onComment(comment: String(comment))
         case let (field, data):
             processField(field: field, value: dropLeadingSpace(str: data ?? ""))
         }
@@ -84,7 +84,7 @@ import Foundation
         // remove the last LF
         _ = data.popLast()
         let messageEvent = MessageEvent(data: data, lastEventId: lastEventId)
-        handler.onMessage(eventType: eventType.isEmpty ? "message" : eventType, messageEvent: messageEvent)
+        handler?.onMessage(eventType: eventType.isEmpty ? "message" : eventType, messageEvent: messageEvent)
         data = ""
         eventType = ""
     }

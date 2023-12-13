@@ -113,3 +113,10 @@ public class UnsuccessfulResponseError: Error {
         self.responseCode = responseCode
     }
 }
+
+public extension EventHandler {
+    func onOpened() {}
+    func onClosed() {}
+    func onComment(comment: String) {}
+    func onError(error: Error) {}
+}
